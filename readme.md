@@ -17,8 +17,13 @@
 3. Update the values in `.env` file to match your configuration. Copy `.env.example` as a starting point
 4. Run ```php artisan migrate``` to install the database migration
 
-## Contribution
-If you would like to  add features or enhance the current ones, please email [reachout via twitter](http://)
+## Issues, Questions and Pull Requests
+
+You can report issues and ask questions in the [issues section](https://github.com/skapeyi/ictau_crm/issues). 
+
+If you have a question, check the closed issues first.
+
+To submit a Pull Request, please fork this repository, create a new branch and commit your new/updated code in there. Then open a Pull Request from your new branch. Refer to [this guide](https://help.github.com/articles/about-pull-requests/) for more info.
 
 ## Contributors
 1. [Samson Kapeyi](http://skapeyi.com)

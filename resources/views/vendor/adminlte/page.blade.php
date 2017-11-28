@@ -115,6 +115,10 @@
             <!-- Main content -->
             <section class="content">
 
+                <div class="container">
+                    @include('flash::message')
+                </div>
+
                 @yield('content')
 
             </section>
