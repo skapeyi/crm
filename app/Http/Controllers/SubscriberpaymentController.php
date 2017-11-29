@@ -46,12 +46,15 @@ class SubscriberpaymentController extends Controller
         $pay->balance = $request->balance;
         $pay->subscriber_id = $request->subscriber;
         $pay->payment_date = $request->payment_date;
+
+        // ToDo for partial payments, the increase shouldn't be for a whole year. Think about the different scnenarios! 
         $pay->expiry_date = Carbon::parse($request->payment_date)->addMonths(12);
         $pay->comments = $request->comments;
         $pay->created_by = Auth::user()->id;
         $pay->updated_by = Auth::user()->id;
         try {
             if($pay->save()){
+                //ToDo - Update Subscriber payment status
                 flash('Payment saved')->success();
                 return redirect('/subscribers/'.$request->subscriber);
             }

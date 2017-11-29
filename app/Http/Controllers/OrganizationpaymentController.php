@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+use Auth;
+use Carbon\Carbon;
+use App\Organization;
+use App\OrganizationPayment;
+use App\Http\Requests\OrganizationpaymentCreateRequest;
 use Illuminate\Http\Request;
 
 class OrganizationpaymentController extends Controller
@@ -23,7 +29,8 @@ class OrganizationpaymentController extends Controller
      */
     public function create($organization)
     {
-        //
+        $organization = Organization::find($organization);
+        return view('organizations.payments.create', compact('organization'));
     }
 
     /**
@@ -32,9 +39,31 @@ class OrganizationpaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrganizationpaymentCreateRequest $request)
     {
-        //
+        $pay = new OrganizationPayment();
+        $pay->amount = $request->amount;
+        $pay->balance = $request->balance;
+        $pay->organization_id = $request->organization;
+        $pay->payment_date = $request->payment_date;
+
+        // ToDo for partial payments, the increase shouldn't be for a whole year. Think about the different scnenarios! 
+        $pay->expiry_date = Carbon::parse($request->payment_date)->addMonths(12);
+        $pay->comments = $request->comments;
+        $pay->created_by = Auth::user()->id;
+        $pay->updated_by = Auth::user()->id;
+        try {
+            if($pay->save()){
+                //ToDo - Update organization payment status
+                flash('Payment saved')->success();
+                return redirect('/organizations/'.$request->organization);
+            }
+        } catch (\Exception $e) {
+            Log::info($e);
+            flash('Something went wrong, please contact your administrator')->error();
+            return redirect()->back();
+        }
+
     }
 
     /**

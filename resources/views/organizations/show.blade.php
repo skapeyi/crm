@@ -44,10 +44,41 @@
 				<h4 class="panel-title pull-left"> Organization Payment History</h4>
 				<a class="btn btn-primary btn-small pull-right" href="/organization-payment/{{$organization->id}}/addpayment" title="Add Payment">New</a>
 				<div class="clearfix"></div>
-			</div
+				</div
+				<div class="panel-body">
+					@if(count($organization->payments) < 1)
+					<p>No Payments made yet</p>
+					@else
+					<ul class="event-list">
+
+						@foreach($organization->payments as $item)
+						<?php 
+						$_date = explode('-', $item->payment_date);
+						$_month = date("M", mktime(0, 0, 0, $_date[1], 10));
+						?>
+						<li>
+							<time datetime="{{$item->payment_date}}">
+								<span class="day">{{$_date[2]}}</span>
+								<span class="month">{{$_month}}</span>
+								<span class="year">{{$_date[0]}}</span>
+
+							</time>
+
+							<div class="info">
+								<h2 class="title">Paid: {{$item->amount}}</h2>
+								<h2 class="title">Balance: {{$item->balance}}</h2>
+								<h2 class="title">Expiry Date: {{$item->expiry_date}}</h2>
+								<p class="desc">Comments: {{$item->comments}}</p>
+							</div>
+
+						</li>
+						@endforeach
+					</ul>
+					@endif
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-@endsection
+	@endsection
 
 

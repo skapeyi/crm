@@ -1,93 +1,61 @@
 @extends('adminlte::page')
 
+@push('css')
+<link href="{{ asset('jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title pull-left">	Add Payment </h2>
+				<h2 class="panel-title pull-left">	Add Payment  for {{$organization->name}} </h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body table-responsive">
-				{!! Form::open(['route' => 'organizations.store']) !!}
+				{!! Form::open(['route' => 'organization-payment.store']) !!}
 				
-				
+			{!! Form::hidden('organization',$organization->id) !!}
 
 				<div class="form-group">
-					{!! Form::label('name','Name')!!}
-					{!! Form::text('name','',['class' => 'form-control']) !!}
-					@if ($errors->has('name'))
+					{!! Form::label('amount','Amount')!!}
+					{!! Form::text('amount','',['class' => 'form-control']) !!}
+					@if ($errors->has('amount'))
 					<span class="help-block">
-						<strong>{{ $errors->first('name') }}</strong>
+						<strong>{{ $errors->first('amount') }}</strong>
 					</span>
 					@endif	
 				</div>
 				<div class="form-group">
-					{!! Form::label('address','Address')!!}
-					{!! Form::text('address','',['class' => 'form-control']) !!}
-					@if ($errors->has('address'))
+					{!! Form::label('balance','Balance Due')!!}
+					{!! Form::text('balance','',['class' => 'form-control']) !!}
+					@if ($errors->has('balance'))
 					<span class="help-block">
-						<strong>{{ $errors->first('address') }}</strong>
+						<strong>{{ $errors->first('balance') }}</strong>
 					</span>
 					@endif	
 				</div>
 				<div class="form-group">
-					{!! Form::label('phone','Telephone Number')!!}
-					{!! Form::text('phone','',['class' => 'form-control']) !!}
-					@if ($errors->has('phone'))
+					{!! Form::label('payment_date','Date Of Payment')!!}
+					{!! Form::text('payment_date','',['class' => 'form-control datepicker']) !!}
+					@if ($errors->has('payment_date'))
 					<span class="help-block">
-						<strong>{{ $errors->first('phone') }}</strong>
+						<strong>{{ $errors->first('payment_date') }}</strong>
 					</span>
 					@endif
 				</div>
 				<div class="form-group">
-					{!! Form::label('phone_alt','Alternative Telephone Number')!!}
-					{!! Form::text('phone_alt','',['class' => 'form-control']) !!}
-					@if ($errors->has('phone_alt'))
+					{!! Form::label('comments','Any Comments')!!}
+					{!! Form::textarea('comments','',['class' => 'form-control']) !!}
+					@if ($errors->has('comments'))
 					<span class="help-block">
-						<strong>{{ $errors->first('phone_alt') }}</strong>
+						<strong>{{ $errors->first('comments') }}</strong>
 					</span>
 					@endif
-				</div>
-				<div class="form-group">
-					{!! Form::label('email','Email')!!}
-					{!! Form::text('email','',['class' => 'form-control']) !!}
-					@if ($errors->has('email'))
-					<span class="help-block">
-						<strong>{{ $errors->first('email') }}</strong>
-					</span>
-					@endif
-				</div>
-				<div class="form-group">
-					{!! Form::label('email_alt','Alternative Email')!!}
-					{!! Form::text('email_alt','',['class' => 'form-control']) !!}
-					@if ($errors->has('email_alt'))
-					<span class="help-block">
-						<strong>{{ $errors->first('email_alt') }}</strong>
-					</span>
-					@endif
-				</div>
-				<div class="form-group">
-					{!! Form::label('level','Level')!!}
-					{!! Form::select('level',$levels,null,['class' => 'form-control','placeholder' => ' Select Organization Level']) !!}
-					@if ($errors->has('level'))
-					<span class="help-block">
-						<strong>{{ $errors->first('level') }}</strong>
-					</span>
-					@endif
-				</div>
-				<div class="form-group">
-					{!! Form::label('payment_status','Payment Status')!!}
-					{!! Form::select('payment_status',$payment_status,null,['class' => 'form-control','placeholder' =>'Select Payment Status']) !!}
-					@if ($errors->has('payment_status'))
-					<span class="help-block">
-						<strong>{{ $errors->first('payment_status') }}</strong>
-					</span>
-					@endif
-				</div>
+				</div>				
 				
 				<div class="form-group">
-					{!! Form::submit('Save Organization',['class'=>'btn btn-primary']) !!}
+					{!! Form::submit('Save Payment Details',['class'=>'btn btn-primary']) !!}
 				</div>
 				{!! Form::close() !!}
 			</div>
@@ -95,5 +63,14 @@
 	</div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('jquery-ui/jquery-ui.min.js') }}"></script>
+<script type="text/javascript">
+	$('.datepicker').datepicker({
+		'dateFormat': 'yy-mm-dd'
+	});
+</script>
+@endpush
 
 
