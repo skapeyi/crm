@@ -7,6 +7,7 @@ use Log;
 use Auth;
 use DataTables;
 use App\Subscriber;
+use App\SubcriberPayment;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubscriberCreateRequest;
 
@@ -84,7 +85,9 @@ class SubscriberController extends Controller
      */
     public function show($id)
     {
-        //
+        $subscriber = Subscriber::find($id);
+
+        return view('subscribers.show', compact('subscriber'));
     }
 
     /**

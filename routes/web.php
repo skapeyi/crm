@@ -21,3 +21,9 @@ Route::get('/subscriberdata','SubscriberController@get_subscriber_data')->name('
 
 Route::resource('/organizations','OrganizationController');
 Route::get('/organizationdata','OrganizationController@get_organization_data')->name('organizationdata');
+
+Route::resource('organization-payment','OrganizationpaymentController');
+Route::get('organization-payment/{organization}/addpayment','OrganizationpaymentController@create')->name('organization-payment');
+
+Route::resource('subscriber-payment','SubscriberpaymentController');
+Route::get('subscriber-payment/{subscriber}/addpayment','SubscriberpaymentController@create')->name('subscriber-payment');
