@@ -6,10 +6,21 @@ use DB;
 use Log;
 use Auth;
 use DataTables;
+use App\Subscriber;
 use Illuminate\Http\Request;
+use App\Http\Requests\SubscriberCreateRequest;
 
 class SubscriberController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +28,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        //
+        return view('subscribers.index');
     }
 
     /**
@@ -38,9 +49,31 @@ class SubscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubscriberCreateRequest $request)
     {
-        //
+        $sub = new Subscriber();
+        $sub->name = $request->name;
+        $sub->phone = $request->phone;
+        $sub->phone_alt = $request->phone_alt;
+        $sub->email = $request->email;
+        $sub->email_alt = $request->email_alt;
+        $sub->level = $request->level;
+        $sub->payment_status = $request->payment_status;
+        $sub->created_by = Auth::user()->id;
+        $sub->updated_by = Auth::user()->id;
+        try {
+            if($sub->save()){
+                //ToDo - Send User Email
+                flash('Saved new subsciber')->success();
+                //ToDo - Go to view page and show payment and details
+                return redirect('/subscribers');
+            }
+        } catch (\Exception $e) {
+            flash("Ooops, please contact your system admin!")->error();
+            Log::info($e);
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -92,7 +125,10 @@ class SubscriberController extends Controller
         ->join('users as u','s.created_by','=','u.id')
         ->join('users as u1','s.updated_by','=','u1.id')
         ->select('s.id','s.name','s.phone','s.phone_alt','s.email','s.email_alt','s.level','s.payment_status','u.name as created_by','u1.name as updated_by');
-        return DataTables::of($query)->make(true);
+
+        return Datatables::of($query)->addColumn('action', function($subscriber){
+            return '<a href="subscribers/'.$subscriber->id.'" title="View Details"><i class="fa fa-eye"></i></a>';
+        })->make(true);
     }
 
 }

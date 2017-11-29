@@ -119,8 +119,9 @@
                     @include('flash::message')
                 </div>
 
-                @yield('content')
-
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </section>
             <!-- /.content -->
             @if(config('adminlte.layout') == 'top-nav')
@@ -138,4 +139,5 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
+    @stack('scripts')
 @stop

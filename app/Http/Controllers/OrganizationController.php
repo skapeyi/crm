@@ -2,10 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Log;
+use Auth;
+use DataTables;
+use App\Organization;
+
+use App\Http\Requests\OrganizationCreateRequest;
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +30,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+        return view('organizations.index');
     }
 
     /**
@@ -34,9 +51,32 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrganizationCreateRequest $request)
     {
-        //
+        $org = new Organization();
+        $org->name = $request->name;
+        $org->address = $request->address;
+        $org->phone = $request->phone;
+        $org->phone_alt  = $request->phone_alt;
+        $org->email = $request->email;
+        $org->email_alt = $request->email_alt;
+        $org->level = $request->level;
+        $org->payment_status = $request->payment_status;
+        $org->created_by = Auth::user()->id;
+        $org->updated_by = Auth::user()->id;
+
+        try {
+            if($org->save()){
+                //ToDo - Send user email
+                flash("Added new organizations")->success();
+                //ToDo - Goto to view page and show payments and details
+                return redirect('/organizations');
+            }
+        } catch (\Exception $e) {
+            flash("Ooops, please contact your system admin")->error();
+            Log::info($e);
+            return redirect()->back();
+        }
     }
 
     /**
@@ -85,6 +125,13 @@ class OrganizationController extends Controller
     }
 
     public function get_organization_data(){
+        $query = DB::table('organizations as o')
+        ->join('users as u','o.created_by','=','u.id')
+        ->join('users as u1','o.updated_by','=','u1.id')
+        ->select('o.id','o.name','o.phone','o.phone_alt','o.email','o.email_alt','o.level','o.payment_status','u.name as created_by','u1.name as updated_by');
 
+        return Datatables::of($query)->addColumn('action', function($organization){
+            return '<a href="organizations/'.$organization->id.'" title="View Details"><i class="fa fa-eye"></i></a>';
+        })->make(true);
     }
 }

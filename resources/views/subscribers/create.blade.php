@@ -61,7 +61,7 @@
 				<div class="form-group">
 					{!! Form::label('level','Level')!!}
 					{!! Form::select('level',$levels,null,['class' => 'form-control','placeholder' => 'Select Subscriber Level']) !!}
-					@if ($errors->has('ward'))
+					@if ($errors->has('level'))
 					<span class="help-block">
 						<strong>{{ $errors->first('level') }}</strong>
 					</span>

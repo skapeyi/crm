@@ -9,7 +9,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body table-responsive">
-				{!! Form::open(['route' => 'subscribers.store']) !!}
+				{!! Form::open(['route' => 'organizations.store']) !!}
 				
 				
 
@@ -45,7 +45,7 @@
 					{!! Form::text('phone_alt','',['class' => 'form-control']) !!}
 					@if ($errors->has('phone_alt'))
 					<span class="help-block">
-						<strong>{{ $errors->first('phone') }}</strong>
+						<strong>{{ $errors->first('phone_alt') }}</strong>
 					</span>
 					@endif
 				</div>
@@ -70,7 +70,7 @@
 				<div class="form-group">
 					{!! Form::label('level','Level')!!}
 					{!! Form::select('level',$levels,null,['class' => 'form-control','placeholder' => ' Select Organization Level']) !!}
-					@if ($errors->has('ward'))
+					@if ($errors->has('level'))
 					<span class="help-block">
 						<strong>{{ $errors->first('level') }}</strong>
 					</span>

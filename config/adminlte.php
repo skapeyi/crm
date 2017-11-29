@@ -138,13 +138,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'New',
-                    'url'  => '#',
+                    'url'  => 'organizations/create',
                     'icon' => 'plus'
                 ],
                 
                 [
                     'text' => 'Manage',
-                    'url'  => '#',
+                    'url'  => 'organizations',
                     'icon' => 'key'
                 ]
             ],
@@ -155,24 +155,24 @@ return [
             'icon'        => 'unlock',
             'label_color' => 'success',
         ],
-        'USER MANAGEMENT',
-        [
-            'text'    => 'Users',
-            'icon'    => 'users',
-            'submenu' => [
-                [
-                    'text' => 'Add',
-                    'url'  => '#',
-                    'icon' => 'plus'
-                ],
+        // 'USER MANAGEMENT',
+        // [
+        //     'text'    => 'Users',
+        //     'icon'    => 'users',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Add',
+        //             'url'  => '#',
+        //             'icon' => 'plus'
+        //         ],
                 
-                [
-                    'text' => 'Manage',
-                    'url'  => '#',
-                    'icon' => 'key'
-                ],                
-            ],
-        ],
+        //         [
+        //             'text' => 'Manage',
+        //             'url'  => '#',
+        //             'icon' => 'key'
+        //         ],                
+        //     ],
+        // ],
 
     ],
 
