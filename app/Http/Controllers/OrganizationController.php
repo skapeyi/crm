@@ -23,7 +23,9 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        $levels = ['Level One' => 'Telecommunications companies, ICT Manufacturers and equipment suppliers, MNCs operating in Uganda','Level Two' => 'Other large corporations NOT directly in the ICT Industry','Level Three' => 'Ugandan Software development companies and distributors, computer hardware dealers and distributors, web hosting companies, web design companies, IT support companies and solutions companies' ];
+        $payment_status = ['Paid' => 'Paid', 'Un-Paid' => 'Un-Paid', 'Expired' => 'Expired'];
+        return view('organizations.create',compact('levels','payment_status'));
     }
 
     /**
@@ -80,5 +82,9 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_organization_data(){
+
     }
 }

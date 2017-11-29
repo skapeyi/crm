@@ -121,13 +121,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'New',
-                    'url'  => '#',
+                    'url'  => '/subscribers/create',
                     'icon' => 'plus'
                 ],
                 
                 [
                     'text' => 'Manage',
-                    'url'  => '#',
+                    'url'  => '/subscribers',
                     'icon' => 'key'
                 ]
             ],
