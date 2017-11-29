@@ -149,12 +149,12 @@ return [
                 ]
             ],
         ],
-        [
-            'text'        => 'My Account',
-            'url'         => '#',
-            'icon'        => 'unlock',
-            'label_color' => 'success',
-        ],
+        // [
+        //     'text'        => 'My Account',
+        //     'url'         => '#',
+        //     'icon'        => 'unlock',
+        //     'label_color' => 'success',
+        // ],
         // 'USER MANAGEMENT',
         // [
         //     'text'    => 'Users',

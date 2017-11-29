@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title','Station Cash Flow')
+@section('title','Subscribed Organizations')
 
 @section('content')
 <div class="row">
