@@ -116,7 +116,7 @@ return [
             'label_color' => 'success',
         ],
        [
-            'text'    => 'Subscribers',
+            'text'    => 'Members',
             'icon'    => 'users',
             'submenu' => [
                 [

@@ -55,6 +55,7 @@ class SubscriberpaymentController extends Controller
         try {
             if($pay->save()){
                 //ToDo - Update Subscriber payment status
+                //ToDo - We can also send people emails to notify them about their payments
                 flash('Payment saved')->success();
                 return redirect('/subscribers/'.$request->subscriber);
             }
