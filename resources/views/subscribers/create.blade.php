@@ -9,7 +9,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="panel-body table-responsive">
-				{!! Form::open(['route' => 'subscribers.store']) !!}
+				{!! Form::open(['route' => 'members.store']) !!}
 				
 				
 

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use DB;
 use Log;
 use Auth;
+use Excel;
 use DataTables;
+use Carbon\Carbon;
 use App\Subscriber;
-use App\SubcriberPayment;
+use App\SubscriberPayment;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubscriberCreateRequest;
 
@@ -67,7 +69,7 @@ class SubscriberController extends Controller
                 //ToDo - Send User Email
                 flash('Saved new subsciber')->success();
                 //ToDo - Go to view page and show payment and details
-                return redirect('/subscribers');
+                return redirect('/members');
             }
         } catch (\Exception $e) {
             flash("Ooops, please contact your system admin!")->error();
@@ -130,8 +132,69 @@ class SubscriberController extends Controller
         ->select('s.id','s.name','s.phone','s.phone_alt','s.email','s.email_alt','s.level','s.payment_status','u.name as created_by','u1.name as updated_by');
 
         return Datatables::of($query)->addColumn('action', function($subscriber){
-            return '<a href="subscribers/'.$subscriber->id.'" title="View Details"><i class="fa fa-eye"></i></a>';
+            return '<a href="members/'.$subscriber->id.'" title="View Details"><i class="fa fa-eye"></i></a>';
         })->make(true);
+    }
+
+    public function import(){
+        return view('subscribers.import');
+    }
+
+    public function save_import(Request $request){
+        if($request->hasFile('members_file')){
+            $path = $request->file('members_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            $existing_members = [];
+            if($data->count()){
+                foreach($data as $key => $value){
+                    Log::info($value);
+                    if($value->name != NULL &&  $value->email != NULL){
+                        $member = Subscriber::where('email',$value->email)->first();
+                        if(empty($member)){
+                            $member = new Subscriber();
+                            $member->name = $value->name;
+                            $member->phone = $value->telephone;
+                            $member->phone_alt = $value->telephone_2;
+                            $member->email = $value->email;
+                            $member->email_alt = $value->email_2;
+                            $member->level = $value->level;
+                            $member->payment_status = $value->payment_status;
+                            $member->created_by = Auth::user()->id;
+                            $member->updated_by = Auth::user()->id;
+
+                            if($member->save()){
+                                //we need to create the subscription info here
+                                $payment = new SubscriberPayment();
+                                $payment->amount = $value->amount;
+                                $payment->subscriber_id = $member->id;
+                                if(!empty($value->payment_date)){
+                                    $payment->payment_date = $value->payment_date->date;
+                                    $payment->expiry_date = Carbon::parse($payment->payment_date)->addMonths(12);
+                                }                                
+                                
+                                $payment->created_by = Auth::user()->id;
+                                $payment->updated_by = Auth::user()->id;
+                                $payment->save();
+                            }
+                        }else{
+                            $existing_members[] = $member->email;
+                        }
+                    }
+                }
+                foreach ($existing_members as $item) {
+                    flash($item. ' already exists and has not been processed');
+                }
+                return view('subscribers.index');
+            }else{
+                flash("File is empty")->error();
+                return redirect()->back();
+            }
+        }
+
+        else{
+            flash("Please upload file to import")->error();
+            return redirect()->back();
+        }
     }
 
 }

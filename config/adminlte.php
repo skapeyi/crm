@@ -121,14 +121,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'New',
-                    'url'  => '/subscribers/create',
+                    'url'  => '/members/create',
                     'icon' => 'plus'
                 ],
                 
                 [
                     'text' => 'Manage',
-                    'url'  => '/subscribers',
+                    'url'  => '/members',
                     'icon' => 'key'
+                ],
+
+                [
+                    'text' => 'Import',
+                    'url' => '/import-members'
                 ]
             ],
         ],
@@ -146,6 +151,10 @@ return [
                     'text' => 'Manage',
                     'url'  => 'organizations',
                     'icon' => 'key'
+                ],
+                [
+                    'text' => 'import',
+                    'url' => '/import-organizations'
                 ]
             ],
         ],

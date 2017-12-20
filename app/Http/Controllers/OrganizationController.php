@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Log;
 use Auth;
+use Excel;
 use DataTables;
 use App\Organization;
 
@@ -134,5 +135,35 @@ class OrganizationController extends Controller
         return Datatables::of($query)->addColumn('action', function($organization){
             return '<a href="organizations/'.$organization->id.'" title="View Details"><i class="fa fa-eye"></i></a>';
         })->make(true);
+    }
+
+    public function import(){
+        return view('organizations.import');
+    }
+
+    public function save_import(Request $request){
+        if($request->hasFile('organization_file')){
+            $path = $request->file('organization_file')->getRealPath();
+            $data = \Excel::load($path)->get();
+            if($data->count()){
+                $members = [];
+                foreach($data as $key => $value){
+                    Log::info($value);
+                    if($value->name != NULL &&  $value->email != NULL){
+                        $members[] = [
+                            'name' => $value->name
+
+                        ];
+                    }
+                }
+            }else{
+                flash("File is empty");
+                return redirect()->back();
+            }
+        }
+        else{
+            flash("Please upload file to import")->error();
+            return redirect()->back();
+        }
     }
 }
