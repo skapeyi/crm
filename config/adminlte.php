@@ -111,7 +111,7 @@ return [
         'MAIN NAVIGATION',
         [
             'text'        => 'Dashboard',
-            'url'         => '#',
+            'url'         => '/home',
             'icon'        => 'tachometer',
             'label_color' => 'success',
         ],

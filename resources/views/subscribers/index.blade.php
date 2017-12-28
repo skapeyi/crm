@@ -51,7 +51,8 @@
 			{ data: 'created_by', name: 'created_by'},
 			{ data: 'updated_by', name: 'updated_by'},
 			{ data: 'action', name: 'action'}
-			]
+			],
+			buttons: ['excel']
 		});
 	});
 </script>
