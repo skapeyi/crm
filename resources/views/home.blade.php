@@ -9,52 +9,59 @@
 @section('content')
 <div class="row">
 	<div class="col-md-3">
-		<div class="panel panel-primary">
-			<div class="panel-body">
-				<h1>{{$total_members}}</h1>
-			</div>
-			<div class="panel-footer">
-				Total Members
-			</div>
-		</div>    	
-	</div>
-	<div class="col-md-3">
-		<div class="panel panel-danger">
-			<div class="panel-body">
-				<h1>{{count($members_expiring_soon)}}</h1>
-			</div>
-			<div class="panel-footer">
-				Total Members Expiring in 30 days
-			</div>
-		</div>    	
-	</div>
-	<div class="col-md-3">
-		<div class="panel panel-primary">
-			<div class="panel-body">
-				<h1>{{$total_organizations}}</h1>
-			</div>
-			<div class="panel-footer">
-				Total Organizations
-			</div>
-		</div>    	
-	</div>
-	<div class="col-md-3">
-		<div class="panel panel-danger">
-			<div class="panel-body">
-				<h1>{{count($organizations_expiring_soon)}}</h1>
-			</div>
-			<div class="panel-footer">
-				Total Organizations Expiring in 30 days
-			</div>
-		</div>    	
-	</div>
+		<a href="/members">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<h1>{{$total_members}}</h1>
+				</div>
+				<div class="panel-footer">
+					Total Members
+				</div>
+			</div>    	</a>
+		</div>
+		<div class="col-md-3">
+			<a href="/members-expiring">
+				<div class="panel panel-danger">
+					<div class="panel-body">
+						<h1>{{count($members_expiring_soon)}}</h1>
+					</div>
+					<div class="panel-footer">
+						Total Members Expiring in 30 days
+					</div>
+				</div> 
+			</a>   	
+		</div>
+		<div class="col-md-3">
+			<a href="/organizations">
+				<div class="panel panel-primary">
+					<div class="panel-body">
+						<h1>{{$total_organizations}}</h1>
+					</div>
+					<div class="panel-footer">
+						Total Organizations
+					</div>
+				</div>   
+			</a> 	
+		</div>
+		<div class="col-md-3">
+			<a href="organizations-expiring">
+				<div class="panel panel-danger">
+					<div class="panel-body">
+						<h1>{{count($organizations_expiring_soon)}}</h1>
+					</div>
+					<div class="panel-footer">
+						Total Organizations Expiring in 30 days
+					</div>
+				</div> 
+			</a>   	
+		</div>
 
-</div>
+	</div>
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-info">
-			<div class="panel-header">
-
+			<div class="panel-heading">
+				<h3 class="panel-title">Expiring Members</h3>
 			</div>
 			<div class="panel-body">
 				@if(count($members_expiring_soon) < 0 )
@@ -93,8 +100,8 @@
 
 	<div class="col-md-6">
 		<div class="panel panel-info">
-			<div class="panel-header">
-
+			<div class="panel-heading">
+				<h3 class="panel-title">Expiring Organizations</h3>
 			</div>
 			<div class="panel-body">
 				@if(count($organizations_expiring_soon) < 0 )

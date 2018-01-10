@@ -115,73 +115,18 @@ return [
             'icon'        => 'tachometer',
             'label_color' => 'success',
         ],
-       [
-            'text'    => 'Members',
-            'icon'    => 'users',
-            'submenu' => [
-                [
-                    'text' => 'New',
-                    'url'  => '/members/create',
-                    'icon' => 'plus'
-                ],
-                
-                [
-                    'text' => 'Manage',
-                    'url'  => '/members',
-                    'icon' => 'key'
-                ],
-
-                [
-                    'text' => 'Import',
-                    'url' => '/import-members'
-                ]
-            ],
+        [
+            'text'        => 'Members',
+            'url'         => '/members',
+            'icon'        => 'users',
+            'label_color' => 'success',
         ],
         [
-            'text'    => 'Organizations',
-            'icon'    => 'sitemap',
-            'submenu' => [
-                [
-                    'text' => 'New',
-                    'url'  => 'organizations/create',
-                    'icon' => 'plus'
-                ],
-                
-                [
-                    'text' => 'Manage',
-                    'url'  => 'organizations',
-                    'icon' => 'key'
-                ],
-                [
-                    'text' => 'import',
-                    'url' => '/import-organizations'
-                ]
-            ],
-        ],
-        // [
-        //     'text'        => 'My Account',
-        //     'url'         => '#',
-        //     'icon'        => 'unlock',
-        //     'label_color' => 'success',
-        // ],
-        // 'USER MANAGEMENT',
-        // [
-        //     'text'    => 'Users',
-        //     'icon'    => 'users',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Add',
-        //             'url'  => '#',
-        //             'icon' => 'plus'
-        //         ],
-                
-        //         [
-        //             'text' => 'Manage',
-        //             'url'  => '#',
-        //             'icon' => 'key'
-        //         ],                
-        //     ],
-        // ],
+            'text'        => 'Organizations',
+            'url'         => '/organizations',
+            'icon'        => 'building',
+            'label_color' => 'success',
+        ]
 
     ],
 

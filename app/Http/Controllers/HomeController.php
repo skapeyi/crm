@@ -42,14 +42,14 @@ class HomeController extends Controller
         
         $members_expiring_soon = $members_expiring_query->simplePaginate(10,['*'],'members');
 
-        $members_expiring_query = DB::table('organizations as o')
+        $organizations_expiring_query = DB::table('organizations as o')
                                 ->join('organization_payments as op','o.id','=','op.organization_id')
                                 ->select('o.name', 'o.email','o.phone','op.payment_date','op.expiry_date')
                                 ->whereDate('op.expiry_date','<=',$one_month_after)
                                 ->orderBy('op.expiry_date','ASC')
                                 ->groupBy('o.email');       
         
-        $organizations_expiring_soon = $members_expiring_query->simplePaginate(10,['*'],'organizations');
+        $organizations_expiring_soon = $organizations_expiring_query->simplePaginate(10,['*'],'organizations');
 
         return view('home', compact('total_members','total_organizations','members_expiring_soon','organizations_expiring_soon'));
     }

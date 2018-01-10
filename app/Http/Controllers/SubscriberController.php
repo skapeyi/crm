@@ -197,4 +197,22 @@ class SubscriberController extends Controller
         }
     }
 
+    public function expiringSoon(){
+        $today = Carbon::now();
+        $one_month_after = $today->addMonths(1)->toDateString();
+         $organizations_expiring_query = DB::table('organizations as o')
+                                ->join('organization_payments as op','o.id','=','op.organization_id')
+                                ->select('o.name', 'o.email','o.phone','op.payment_date','op.expiry_date')
+                                ->whereDate('op.expiry_date','<=',$one_month_after)
+                                ->orderBy('op.expiry_date','ASC')
+                                ->groupBy('o.email');       
+        
+        $organizations_expiring_soon = $organizations_expiring_query->simplePaginate(10,['*'],'organizations');
+        return view('subscribers.expiring', compact('organizations_expiring_soon'));
+    }
+
+    public function export(){
+
+    }
+
 }

@@ -17,14 +17,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/members','SubscriberController');
+Route::get('/members-expiring','SubscriberController@expiringSoon');
+
 Route::get('/subscriberdata','SubscriberController@get_subscriber_data')->name('subscriberdata');
+
 Route::get('/import-members', 'SubscriberController@import');
 Route::post('/import-members', 'SubscriberController@save_import')->name('members_saveimport');
+Route::get('/export-members','SubscriberController@export');
 
 Route::resource('/organizations','OrganizationController');
 Route::get('/organizationdata','OrganizationController@get_organization_data')->name('organizationdata');
-Route::get('/import-organizations','OrganizationController@import');
-Route::post('/import-organizations','OrganizationController@save_import')->name('organizations_saveimport');
+Route::get('/organizations-expiring','OrganizationController@expiringSoon');
+Route::get('/export-organizations','OrganizationController@export');
 
 
 Route::resource('organization-payment','OrganizationpaymentController');

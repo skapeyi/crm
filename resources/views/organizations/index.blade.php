@@ -6,6 +6,14 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
+			<div class="panel-heading" style="min-height: 75px;">
+				<h3 class="panel-title">All Organizations</h3>
+				<div class="btn-group pull-right">
+					<a href="/organizations/create" class="btn btn-default btn-sm" title="New member"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+					
+					<a href="/export-organizations" class="btn btn-default btn-sm" title="Import"><i class="fa fa-download" aria-hidden="true"></i> Export</a>					
+				</div>
+			</div>
 			<div class="panel-body table-responsive">
 				<table class="table table-bordered table-responsive" id="organization-table">
 					<thead>
